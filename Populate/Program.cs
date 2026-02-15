@@ -3,7 +3,6 @@ using System.Text.Json;
 
 namespace Populate
 {
-
     class Program
     {
         static readonly string baseUrl = "http://localhost:8080";

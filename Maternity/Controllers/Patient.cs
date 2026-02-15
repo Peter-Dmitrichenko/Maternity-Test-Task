@@ -1,7 +1,6 @@
 ﻿using BL;
-using Microsoft.AspNetCore.Mvc;
-using DTO;
 using DTO.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Maternity.Controllers
 {
