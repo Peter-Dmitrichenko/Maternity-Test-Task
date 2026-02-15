@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "maternity": "StartDebugging"
+      },
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:8080/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://+:80",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionStrings__DefaultConnection": "Server=sqlserver,1433;Database=MaternityDb;User Id=sa;Password=YourStrongPassw0rd;"
+      },
+      "publishAllPorts": false,
+      "useSSL": false
+    }
+  }
+}

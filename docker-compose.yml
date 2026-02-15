@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: maternity_sql
+    environment:
+      SA_PASSWORD: "YourStrongPassw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "14333:1433"          # host port 14333 to avoid conflicts
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrongPassw0rd", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - maternity-net
+
+  maternity:
+    image: ${DOCKER_REGISTRY-}maternity
+    build:
+      context: ./            
+      dockerfile: Maternity/Dockerfile
+    container_name: maternity_api
+    depends_on:
+        - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=MaternityDb;User Id=sa;Password=YourStrongPassw0rd;"
+    ports:
+      - "8080:80"
+    networks:
+      - maternity-net
+    restart: on-failure
+
+volumes:
+  mssql-data:
+
+networks:
+  maternity-net:
+    driver: bridge
