@@ -1,6 +1,6 @@
 ﻿using DB.Models;
 
-namespace BL
+namespace BL.Interfaces
 {
 
     public interface IDateSearchService

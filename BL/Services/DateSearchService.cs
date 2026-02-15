@@ -1,7 +1,8 @@
-﻿using DB.Models;
+﻿using BL.Interfaces;
+using DB.Models;
 using System.Globalization;
 
-namespace BL
+namespace BL.Services
 {
     public class DateSearchService : IDateSearchService
     {

@@ -4,8 +4,9 @@ using AutoMapper;
 using DTO;
 using DTO.Models;
 using DB.Models;
+using BL.Interfaces;
 
-namespace BL
+namespace BL.Services
 {
     public class PatientService : IPatientService
     {
