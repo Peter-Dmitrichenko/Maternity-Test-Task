@@ -1,0 +1,383 @@
+{
+  "info": {
+    "_postman_id": "93c3bf6d-08d5-487d-b963-b6dc434ba7bf",
+    "name": "Maternity API Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52394121",
+    "_collection_link": "https://go.postman.co/collection/52394121-93c3bf6d-08d5-487d-b963-b6dc434ba7bf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Patient",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    var jsonData = pm.response.json();",
+              "    pm.environment.set(\"patientId\", jsonData.id);",
+              "    console.log(\"Stored patientId: \" + jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": {\n        \"use\": \"official\",\n        \"family\": \"Doe\",\n        \"given\": [\"John\", \"A\"]\n    },\n    \"gender\": \"male\",\n    \"birthDate\": \"1985-07-20\",\n    \"active\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Patient by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients/{{patientId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients",
+            "{{patientId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Patient",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"{{patientId}}\",\n    \"name\": {\n        \"use\": \"official\",\n        \"family\": \"Doe\",\n        \"given\": [\"John\", \"A\"]\n    },\n    \"gender\": \"male\",\n    \"birthDate\": \"1985-07-21\",\n    \"active\": false\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients/{{patientId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients",
+            "{{patientId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Patient",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients/{{patientId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients",
+            "{{patientId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Patients (no filter)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate ge 2010-01-01",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ge2010-01-01",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ge2010-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate lt 2000-01-01",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=lt2000-01-01",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "lt2000-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate eq 1995-06-15",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=eq1995-06-15",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "eq1995-06-15"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate ne 1990-01-01",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ne1990-01-01",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ne1990-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate ge 2010-01-01 & le 2011-12-31",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ge2010-01-01&birthdate=le2011-12-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ge2010-01-01"
+            },
+            {
+              "key": "birthdate",
+              "value": "le2011-12-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate ge 2005-01-01 & le 2005-12-31",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ge2005-01-01&birthdate=le2005-12-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ge2005-01-01"
+            },
+            {
+              "key": "birthdate",
+              "value": "le2005-12-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate ap 2010-06-01 & ge 2009-01-01",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ap2010-06-01&birthdate=ge2009-01-01",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ap2010-06-01"
+            },
+            {
+              "key": "birthdate",
+              "value": "ge2009-01-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - birthDate sa 2012-01-01 & eb 2012-12-31",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=sa2012-01-01&birthdate=eb2012-12-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "sa2012-01-01"
+            },
+            {
+              "key": "birthdate",
+              "value": "eb2012-12-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Patients - multiple birthDate filters (ge & le & ne)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/Patients?birthdate=ge1990-01-01&birthdate=le2000-12-31&birthdate=ne1995-06-15",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "Patients"
+          ],
+          "query": [
+            {
+              "key": "birthdate",
+              "value": "ge1990-01-01"
+            },
+            {
+              "key": "birthdate",
+              "value": "le2000-12-31"
+            },
+            {
+              "key": "birthdate",
+              "value": "ne1995-06-15"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
