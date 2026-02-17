@@ -4,6 +4,7 @@ using DB;
 using DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using DB.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,8 @@ builder.Services.AddScoped<GenderIdToCodeResolver>();
 builder.Services.AddScoped<ActiveIdToCodeResolver>(); 
 builder.Services.AddScoped<GenderCodeToIdResolver>(); 
 builder.Services.AddScoped<ActiveCodeToIdResolver>();
+
+builder.Services.AddLookupCache();
 
 builder.Services.AddScoped<IDateSearchService, DateSearchService>(); 
 builder.Services.AddScoped<IPatientService, PatientService>();
