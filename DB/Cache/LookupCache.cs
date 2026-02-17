@@ -7,15 +7,15 @@ namespace DB.Cache
     public class LookupCache : ILookupCache
     {
         private readonly IMemoryCache _cache;
-        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly AppDbContext _context;
         private const string GendersKey = "lookup_genders";
         private const string ActivesKey = "lookup_actives";
 
         private readonly TimeSpan span = TimeSpan.FromHours(1);
-        public LookupCache(IMemoryCache cache, IServiceScopeFactory scopeFactory)
+        public LookupCache(IMemoryCache cache, AppDbContext context)
         {
             _cache = cache;
-            _scopeFactory = scopeFactory;
+            _context = context;
         }
 
         public IEnumerable<GenderLookup> Genders
@@ -26,9 +26,7 @@ namespace DB.Cache
                 {
                     entry.AbsoluteExpirationRelativeToNow = span;
 
-                    using var scope = _scopeFactory.CreateScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    return dbContext.Genders.ToList();
+                    return _context.Genders.ToList();
                 });
             }
         }
@@ -41,9 +39,7 @@ namespace DB.Cache
                 {
                     entry.AbsoluteExpirationRelativeToNow = span;
 
-                    using var scope = _scopeFactory.CreateScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    return dbContext.Actives.ToList();
+                    return _context.Actives.ToList();
                 });
             }
         }

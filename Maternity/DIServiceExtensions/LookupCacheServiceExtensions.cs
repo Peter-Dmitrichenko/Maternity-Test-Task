@@ -6,7 +6,7 @@
         {
             services.AddMemoryCache();
 
-            services.AddSingleton<ILookupCache, LookupCache>();
+            services.AddScoped<ILookupCache, LookupCache>();
 
             return services;
         }
