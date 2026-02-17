@@ -24,12 +24,10 @@ namespace DB.Cache
             {
                 return _cache.GetOrCreate(GendersKey, entry =>
                 {
-                    // Optional: set expiration (e.g., 24 hours) as a safety net
                     entry.AbsoluteExpirationRelativeToNow = span;
 
                     using var scope = _scopeFactory.CreateScope();
                     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    // Synchronous load – ToList() blocks, but this runs only once
                     return dbContext.Genders.ToList();
                 });
             }
@@ -48,6 +46,12 @@ namespace DB.Cache
                     return dbContext.Actives.ToList();
                 });
             }
+        }
+
+        public void Preload()
+        {
+            _ = Genders.ToList();
+            _ = Actives.ToList();
         }
 
         public void ResetGenders()

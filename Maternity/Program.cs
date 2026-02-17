@@ -53,6 +53,9 @@ using (var scope = app.Services.CreateScope())
     // This will create the database if it doesn't exist
     dbContext.Database.EnsureCreated();
     await DbInitializer.EnsureLookupsInitializedAsync(dbContext);
+
+    var lookupCache = scope.ServiceProvider.GetRequiredService<ILookupCache>();
+    lookupCache.Preload();
 }
 
 app.UseHttpsRedirection();
